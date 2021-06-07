@@ -8,8 +8,8 @@ use Illuminate\Http\Response;
 class UserController extends Controller
 {
     public function login(Request $request) {
-        $username = $request->user["username"];
-        $password = $request->user["password"];
+        $username = $request->input("username");
+        $password = $request->input("password");
         if($username == "foo" && $password == "bar") {
             $apiResponse = '{ "username": "foo", "displayName": "Foo Bar Foo", "roles": [ "basic-user" ] }';
         }
