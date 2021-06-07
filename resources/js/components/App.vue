@@ -1,6 +1,6 @@
 <template>
   <div>
-    App.vue
+    Territories
   </div>
 </template>
 
