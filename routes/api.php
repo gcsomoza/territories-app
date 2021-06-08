@@ -17,4 +17,5 @@ use App\Http\Controllers\TerritoriesController;
 */
 
 Route::post('/login', [UserController::class, 'login']);
-Route::get('/territories', [TerritoriesController::class, 'all']);
+Route::post('/verifyToken', [UserController::class, 'verifyToken']);
+Route::get('/territories', [TerritoriesController::class, 'all'])->middleware('token.valid');
