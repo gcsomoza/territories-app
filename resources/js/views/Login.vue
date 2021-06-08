@@ -13,6 +13,7 @@
             :class="{'is-invalid': isErrorOccured}"
             id="floatingInput" 
             placeholder="Username"
+            @input="inputUsernameHandler"
           >
           <label for="floatingInput">Username</label>
         </div>
@@ -36,7 +37,7 @@
 
         <div class="checkbox mb-3">
           <label>
-            <input type="checkbox" value="remember-me"> Remember me
+            <input type="checkbox" v-model="isRememberMe" value="remember-me"> Remember me
           </label>
         </div>
         <button 
@@ -70,12 +71,36 @@ export default {
     return {
       username: "",
       password: "",
+      isRememberMe: false,
       isLoggingIn: false,
       isErrorOccured: false,
       errorMessage: "",
     }
   },
+  created() {
+    if(this.$store.getters.isLoggedIn) {
+      this.$router.push({ name: "app" })
+      return
+    }
+    this.isRememberMe = this.$store.getters.getIsRememberMe
+    if(this.isRememberMe) {
+      this.username = this.$store.getters.getUsername
+    }
+  },
+  watch: {
+    isRememberMe(isRemember) {
+      if(isRemember) {
+        this.$store.commit("rememberUser", this.username)
+      }
+      else {
+        this.$store.commit("forgetUser")
+      }
+    }
+  },
   methods: {
+    inputUsernameHandler() {
+      if(this.isRememberMe) this.$store.commit("setUsername", this.username)
+    },
     login() {
       this.isLoggingIn = true
       this.isErrorOccured = false
