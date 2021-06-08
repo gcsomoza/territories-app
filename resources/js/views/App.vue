@@ -17,7 +17,7 @@
 
           <div class="dropdown text-end">
             <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="mdo" width="32" height="32" class="rounded-circle">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHs2X1uRshHlhW76wZIswaHc-mvdHOrC86Kg&usqp=CAU" alt="mdo" width="32" height="32" class="rounded-circle">
             </a>
             <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
               <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#profile">Profile</a></li>
@@ -57,7 +57,7 @@
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHs2X1uRshHlhW76wZIswaHc-mvdHOrC86Kg&usqp=CAU" alt="Admin" class="rounded-circle" width="150">
                     <div class="mt-3">
                       <h4>{{$store.getters.getProfile.displayName}}</h4>
                       <p class="text-secondary mb-1">{{$store.getters.getProfile.username}}</p>
