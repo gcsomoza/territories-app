@@ -7,7 +7,9 @@ use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
-    public function verify($username, $password) {
+    public function verify(Request $request) {
+        $username = $request->input("username");
+        $password = $request->input("password");
         $response = [
             "status" => "OK",
             "message" => "",
@@ -28,9 +30,7 @@ class UserController extends Controller
     }
 
     public function login(Request $request) {
-        $username = $request->input("username");
-        $password = $request->input("password");
-        $response = $this->verify($username, $password);
+        $response = $this->verify($request);
 
         return response(json_encode($response), 200)->header('Content-Type', 'application/json');
     }
