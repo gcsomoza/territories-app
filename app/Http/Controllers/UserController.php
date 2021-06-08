@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Http;
 
 class UserController extends Controller
 {
@@ -15,16 +16,17 @@ class UserController extends Controller
             "message" => "",
             "user" => null, 
         ];
-        if($username == "foo" && $password == "bar") {
-            $apiResponse = '{ "username": "foo", "displayName": "Foo Bar Foo", "roles": [ "basic-user" ] }';
-            $apiResponse = json_decode($apiResponse);
-            $response["user"] = $apiResponse;
-        }
-        else {
-            $apiResponse = '{ "message": "Invalid username or password." }';
-            $apiResponse = json_decode($apiResponse);
+        $apiResponse = Http::post("https://netzwelt-devtest.azurewebsites.net/Account/SignIn", [
+            "username" => $username,
+            "password" => $password
+        ]);
+        $apiResponse = json_decode($apiResponse);
+        if(property_exists($apiResponse, "message")) {
             $response["status"] = "ERROR";
             $response["message"] = $apiResponse->message;
+        }
+        else {
+            $response["user"] = $apiResponse;
         }
         return $response;
     }
