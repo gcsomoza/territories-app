@@ -31,6 +31,9 @@
     <main class="p-3 mb-3">
       <div class="container">
         <h2 class="pb-3">Here are the list of territories</h2>
+        <p v-if="territories.length == 0">
+          <loading width="4rem" height="4rem"></loading> Loading please wait...
+        </p>
         <tree-browser
           v-for="territory in territories"
           :key="territory.id"
@@ -44,10 +47,12 @@
 
 <script>
 import TreeBrowser from '../components/TreeBrowser.vue'
+import Loading from '../components/Loading.vue'
 
 export default {
   components: {
     TreeBrowser,
+    Loading,
   },
   data() {
     return {

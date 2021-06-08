@@ -39,7 +39,20 @@
             <input type="checkbox" value="remember-me"> Remember me
           </label>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="button" @click="login">Sign in</button>
+        <button 
+          class="w-100 btn btn-lg btn-primary btn-login" 
+          type="button" 
+          :disabled="isLoggingIn"
+          @click="login"
+        >
+          <loading 
+            v-if="isLoggingIn" 
+            width="2rem" 
+            height="2rem" 
+            fill="#fff"
+          ></loading>
+          Sign in
+        </button>
         <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
       </form>
     </main>
@@ -47,17 +60,24 @@
 </template>
 
 <script>
+import Loading from '../components/Loading.vue'
+
 export default {
+  components: {
+    Loading,
+  },
   data() {
     return {
       username: "",
       password: "",
+      isLoggingIn: false,
       isErrorOccured: false,
       errorMessage: "",
     }
   },
   methods: {
     login() {
+      this.isLoggingIn = true
       this.isErrorOccured = false
 
       this.$http.post("/api/login", {
@@ -71,6 +91,7 @@ export default {
         }
         this.errorMessage = response.data.message
         this.isErrorOccured = true
+        this.isLoggingIn = false
       })
     }
   }
@@ -114,5 +135,11 @@ export default {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.form-signin button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
