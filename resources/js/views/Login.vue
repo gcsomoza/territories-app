@@ -86,7 +86,12 @@ export default {
       })
       .then((response) => {
         if(response.data.status == "OK") {
-          this.$router.push({ name: "app" });
+          this.$store.commit('startSession', {
+            username: this.username,
+            password: this.password,
+            profile: response.data.user
+          })
+          this.$router.push({ name: "app" })
           return
         }
         this.errorMessage = response.data.message

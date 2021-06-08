@@ -37,11 +37,45 @@ const router = new VueRouter({
 
 const store = new Vuex.Store({
     state: {
-
+      profile: null,
+      username: "",
+      password: "",
+    },
+    getters: {
+      isLoggedIn(state) {
+        return (state.username != "" && state.password != "")
+      },
+      getProfile(state) {
+        return state.profile
+      },
+      getUsername(state) {
+        return state.username
+      },
+      getPassword(state) {
+        return state.password
+      },
     },
     mutations: {
-
-    }
+      startSession(state, payload) {
+        state.username = payload.username
+        state.password = payload.password
+        state.profile = payload.profile
+      },
+      clearSession(state) {
+        state.profile = null
+        state.username = ""
+        state.password = ""
+      },
+      setProfile(state, profile) {
+        state.profile = profile
+      },
+      setUsername(state, username) {
+        state.username = username
+      },
+      setPassword(state, password) {
+        state.password = password
+      },
+    },
 });
 
 const app = new Vue({

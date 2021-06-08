@@ -60,6 +60,9 @@ export default {
     }
   },
   mounted() {
+    if(!this.$store.getters.isLoggedIn) {
+      this.$router.push({ name: "login" })
+    }
     this.$http.get("/api/territories").then((response) => {
       if(response.status == 200) {
         if(response.data.status == "OK") {
@@ -67,12 +70,13 @@ export default {
           return
         }
       }
-      this.$router.push({ name: "login" });
+      this.$router.push({ name: "login" })
     })    
   },
   methods: {
     logout() {
-      this.$router.push({ name: "login" });
+      this.$store.commit("clearSession")
+      this.$router.push({ name: "login" })
     }
   }
 }
