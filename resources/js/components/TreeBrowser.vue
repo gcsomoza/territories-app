@@ -64,7 +64,7 @@ export default {
 
 <style>
 .node {
-  padding-left: 1rem;
+  padding-left: 2rem;
   user-select: none;
   cursor: pointer;
 }

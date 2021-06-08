@@ -20,7 +20,6 @@
               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHs2X1uRshHlhW76wZIswaHc-mvdHOrC86Kg&usqp=CAU" alt="mdo" width="32" height="32" class="rounded-circle">
             </a>
             <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-              <li><a class="dropdown-item" href="#">Settings</a></li>
               <li><a class="dropdown-item" href="#">Profile</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="#">Sign out</a></li>
@@ -29,13 +28,15 @@
         </div>
       </div>
     </header>
-    <main>
-      <tree-browser
-        v-for="territory in territories"
-        :key="territory.id"
-        :node="territory"
-        childrenKey="territories"
-      ></tree-browser>
+    <main class="p-3 mb-3">
+      <div class="container">
+        <tree-browser
+          v-for="territory in territories"
+          :key="territory.id"
+          :node="territory"
+          childrenKey="territories"
+        ></tree-browser>
+      </div>
     </main>
   </div>
 </template>
@@ -49,49 +50,15 @@ export default {
   },
   data() {
     return {
-      territories: [
-        {
-          id: 1,
-          name: "Metro Manila",
-          territories: [
-            {
-              id: 101,
-              name: "Manila",
-              territories: [
-                {
-                  id: 10101,
-                  name: "Malate",
-                },
-                {
-                  id: 10102,
-                  name: "Ermita",
-                },
-              ]
-            },
-          ],
-        },
-        {
-          id: 2,
-          name: "CALABARZON",
-          territories: [
-            {
-              id: 201,
-              name: "Laguna",
-              territories: [
-                {
-                  id: 20101,
-                  name: "Calamba",
-                },
-                {
-                  id: 20102,
-                  name: "Sta. Rosa",
-                },
-              ]
-            },
-          ],
-        },
-      ]
+      territories: [],
     }
-  }
+  },
+  mounted() {
+    this.$http.get("/api/territories").then((response) => {
+      if(response.status == 200) {
+        this.territories = response.data
+      }
+    })    
+  },
 }
 </script>
