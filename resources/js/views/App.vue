@@ -57,8 +57,12 @@ export default {
   mounted() {
     this.$http.get("/api/territories").then((response) => {
       if(response.status == 200) {
-        this.territories = response.data
+        if(response.data.status == "OK") {
+          this.territories = response.data.territories
+          return
+        }
       }
+      this.$router.push({ name: "login" });
     })    
   },
   methods: {

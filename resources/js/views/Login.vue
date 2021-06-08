@@ -65,13 +65,12 @@ export default {
         password: this.password,
       })
       .then((response) => {
-        if(response.data.status == "ERROR") {
-          this.errorMessage = response.data.message
-          this.isErrorOccured = true
-        }
-        else {
+        if(response.data.status == "OK") {
           this.$router.push({ name: "app" });
+          return
         }
+        this.errorMessage = response.data.message
+        this.isErrorOccured = true
       })
     }
   }

@@ -155,7 +155,13 @@ class TerritoriesController extends Controller
         $data = json_decode($apiResponse)->data;
         $territories = $this->groupItems($data, "territories");
 
-        return response(json_encode($territories), 200)->header('Content-Type', 'application/json');
+        $response = [
+          "status" => "OK",
+          "message" => "",
+          "territories" => $territories
+        ];
+
+        return response(json_encode($response), 200)->header('Content-Type', 'application/json');
     }
 
     protected function groupItems($items, $subItemsKey = "items") {
