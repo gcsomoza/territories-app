@@ -3,7 +3,8 @@
     <div 
       class="node"
     >
-      <div 
+      <div
+        v-if="isLikeFilter" 
         class="node-content"
         @click="collapsed = !collapsed"
       >
@@ -21,6 +22,7 @@
         :key="child.id"
         :node="child"
         :childrenKey="childrenKey"
+        :filter="filter"
       >
       </tree-browser>
     </div>
@@ -48,6 +50,10 @@ export default {
       type: Number,
       default: 0
     },
+    filter: {
+      type: String,
+      default: ""
+    }
   },
   data() {
     return {
@@ -57,6 +63,11 @@ export default {
   computed: {
     hasChildren() {
       return this.node.hasOwnProperty(this.childrenKey)
+    },
+    isLikeFilter() {
+      if(this.filter == "") return true
+      else if(!this.node.hasOwnProperty("name")) return false
+      return this.node.name.toLowerCase().includes(this.filter.toLowerCase())
     }
   }
 }

@@ -12,15 +12,15 @@
           </ul>
 
           <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-            <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+            <input type="search" v-model="filter" :disabled="territories.length == 0" class="form-control" placeholder="Search..." aria-label="Search">
           </form>
 
           <div class="dropdown text-end">
             <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHs2X1uRshHlhW76wZIswaHc-mvdHOrC86Kg&usqp=CAU" alt="mdo" width="32" height="32" class="rounded-circle">
+              <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="mdo" width="32" height="32" class="rounded-circle">
             </a>
             <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-              <li><a class="dropdown-item" @click="showProfile">Profile</a></li>
+              <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#profile">Profile</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" @click="logout">Sign out</a></li>
             </ul>
@@ -39,9 +39,41 @@
           :key="territory.id"
           :node="territory"
           childrenKey="territories"
+          :filter="filter"
         ></tree-browser>
       </div>
     </main>
+
+    <!-- Modal -->
+    <div class="modal fade" id="profile" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="profileModalLabel">PROFILE</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="profile-content">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                    <div class="mt-3">
+                      <h4>{{$store.getters.getProfile.displayName}}</h4>
+                      <p class="text-secondary mb-1">{{$store.getters.getProfile.username}}</p>
+                      <p v-for="(role, index) in $store.getters.getProfile.roles" :key="index" class="text-muted font-size-sm">{{role}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>    
   </div>
 </template>
 
@@ -56,6 +88,7 @@ export default {
   },
   data() {
     return {
+      filter: "",
       territories: [],
     }
   },
