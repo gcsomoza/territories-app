@@ -11,8 +11,8 @@ window.Vue = require('vue').default;
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
-import App from './components/App.vue';
-import Login from './components/Login.vue';
+import App from './views/App.vue';
+import Login from './views/Login.vue';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
