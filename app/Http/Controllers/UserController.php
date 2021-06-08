@@ -22,7 +22,7 @@ class UserController extends Controller
         $response = [
             "status" => "OK",
             "message" => "",
-            "user" => null, 
+            "profile" => null, 
             "token" => null,
         ];
         $apiArgs = [
@@ -36,7 +36,7 @@ class UserController extends Controller
             $response["message"] = $apiResponse->message;
         }
         else {
-            $response["user"] = $apiResponse;
+            $response["profile"] = $apiResponse;
         }
         return $response;
     }

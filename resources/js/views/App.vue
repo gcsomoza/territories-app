@@ -63,7 +63,7 @@ export default {
     if(!this.$store.getters.isLoggedIn) {
       this.$router.push({ name: "login" })
     }
-    this.$http.get("/api/territories").then((response) => {
+    this.$http.get("/api/territories", { headers: { token: this.$store.getters.getToken }}).then((response) => {
       if(response.status == 200) {
         if(response.data.status == "OK") {
           this.territories = response.data.territories

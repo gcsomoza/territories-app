@@ -87,9 +87,8 @@ export default {
       .then((response) => {
         if(response.data.status == "OK") {
           this.$store.commit('startSession', {
-            username: this.username,
-            password: this.password,
-            profile: response.data.user
+            token: response.data.token,
+            profile: response.data.profile
           })
           this.$router.push({ name: "app" })
           return
