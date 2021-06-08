@@ -6,12 +6,32 @@
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
         <div class="form-floating">
-          <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-          <label for="floatingInput">Email address</label>
+          <input 
+            type="text" 
+            v-model="username" 
+            class="form-control"
+            :class="{'is-invalid': isErrorOccured}"
+            id="floatingInput" 
+            placeholder="Username"
+          >
+          <label for="floatingInput">Username</label>
         </div>
         <div class="form-floating">
-          <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+          <input 
+            type="password" 
+            v-model="password" 
+            class="form-control" 
+            :class="{'is-invalid': isErrorOccured}"
+            id="floatingPassword" 
+            placeholder="Password"
+          >
           <label for="floatingPassword">Password</label>
+        </div>
+
+        <div v-if="isErrorOccured" class="form-floating">
+          <p class="text-danger">
+            {{errorMessage}}
+          </p>
         </div>
 
         <div class="checkbox mb-3">
@@ -19,7 +39,7 @@
             <input type="checkbox" value="remember-me"> Remember me
           </label>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        <button class="w-100 btn btn-lg btn-primary" type="button" @click="login">Sign in</button>
         <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
       </form>
     </main>
@@ -28,7 +48,33 @@
 
 <script>
 export default {
+  data() {
+    return {
+      username: "",
+      password: "",
+      isErrorOccured: false,
+      errorMessage: "",
+    }
+  },
+  methods: {
+    login() {
+      this.isErrorOccured = false
 
+      this.$http.post("/api/login", {
+        username: this.username,
+        password: this.password,
+      })
+      .then((response) => {
+        if(response.data.status == "ERROR") {
+          this.errorMessage = response.data.message
+          this.isErrorOccured = true
+        }
+        else {
+          this.$router.push({ name: "app" });
+        }
+      })
+    }
+  }
 }
 </script>
 

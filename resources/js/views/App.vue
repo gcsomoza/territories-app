@@ -22,7 +22,7 @@
             <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
               <li><a class="dropdown-item" href="#">Profile</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Sign out</a></li>
+              <li><a class="dropdown-item" @click="logout">Sign out</a></li>
             </ul>
           </div>
         </div>
@@ -30,6 +30,7 @@
     </header>
     <main class="p-3 mb-3">
       <div class="container">
+        <h2 class="pb-3">Here are the list of territories</h2>
         <tree-browser
           v-for="territory in territories"
           :key="territory.id"
@@ -60,5 +61,16 @@ export default {
       }
     })    
   },
+  methods: {
+    logout() {
+      this.$router.push({ name: "login" });
+    }
+  }
 }
 </script>
+
+<style>
+a {
+  cursor: pointer;
+}
+</style>
